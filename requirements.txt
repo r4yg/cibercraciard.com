@@ -1,0 +1,4 @@
+psycopg2_binary
+gunicorn
+bs4
+requests
