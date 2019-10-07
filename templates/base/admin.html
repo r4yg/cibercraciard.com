@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Resultados de control Primarias</title>    
+        <!-- Bootstrap-->
+        <link href="{% static 'dash/lib/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <!--Common Plugins CSS -->
+        <link href="{% static 'dash/css/plugins/plugins.css' %}" rel="stylesheet">
+        <!--fonts-->
+        <link href="{% static 'dash/lib/line-icons/line-icons.css' %}" rel="stylesheet">
+        <link href="{% static 'dash/lib/font-awesome/css/fontawesome-all.min.css' %}" rel="stylesheet">
+        <link href="{% static 'dash/lib/chartist/chartist.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'dash/css/chartist-custom.css' %}?v=1.1" rel="stylesheet" />
+        <!-- jvectormap -->
+        <link href="{% static 'dash/lib/vector-map/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+        <link href="{% static 'dash/css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'dash/lib/sweet-alerts2/sweetalert2.min.css' %}" rel="stylesheet">
+        <link href="{% static 'dash/css/sweet-alert-custom.css' %}" rel="stylesheet">
+        {% block local_styles %}
+        {% endblock %}
+
+    </head>
+    <body>
+
+        <div class="page-wrapper" id="page-wrapper">
+            <main class="content">
+                
+                <div class="page-subheader mb-30">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <div class="list">
+                                    <div class="list-item pl-0">
+                                        <div class="list-thumb ml-0 mr-3 pr-3  b-r text-muted">
+                                            {% block view_title_icon%}
+                                            <a href="{% url 'coreapp:building'%}">
+                                                <i class="icon-Home"></i>
+                                            </a>
+                                            {% endblock %}
+                                        </div>
+                                        <div class="list-body">
+                                            <div class="list-title fs-2x">
+                                                <h3>
+                                                    {% block view_title %}
+                                                    Tabla de resultados
+                                                    {% endblock %}
+                                                </h3>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-end h-md-down">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb no-padding bg-trans mb-0">
+
+                                        {% block breadcrumbs %}
+                                            
+                                            
+
+
+
+                                        {% endblock %}
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content d-flex flex">
+                    <div class="container-fluid">
+                        {% block contenido %}
+                        {% endblock %}
+                    </div>
+                </div>
+                <footer class="content-footer bg-light b-t">
+                    <div class="d-flex flex align-items-center pl-15 pr-15">
+                        <div class="d-flex flex p-3 ml-auto">
+                            
+                        </div>
+                        <div class="d-flex flex p-3 mr-auto justify-content-end">
+                            <div class="text-muted">© Derechos Reservados {% now "Y" %}. Raynnier G. </div>
+                        </div>
+                    </div>
+                </footer><!-- footer end-->
+            </main><!-- page content end-->
+        </div><!-- app's main wrapper end -->
+        <!-- Common plugins -->
+        <script type="text/javascript" src="{% static 'dash/js/plugins/plugins.js' %}"></script> 
+        <script type="text/javascript" src="{% static 'dash/js/appUi-custom.js' %}"></script> 
+        <script type="text/javascript" src="{% static 'dash/lib/chartjs/dist/chart.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'dash/lib/peity/jquery.peity.min.js' %}"></script>
+        <script src="{% static 'dash/lib/chartist/chartist.min.js' %}"></script>
+        <script src="{% static 'dash/lib/chartist/chartist-tooltip.js' %}"></script>
+        <!-- jvectormap -->
+        <script src="{% static 'dash/lib/vector-map/jquery-jvectormap-2.0.2.min.js' %}"></script>
+        <script src="{% static 'dash/lib/vector-map/jquery-jvectormap-world-mill-en.js' %}"></script>
+        <script type="text/javascript" src="{% static 'dash/lib/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'dash/lib/sweet-alerts2/sweetalert2.min.js' %}"></script> 
+        <script type="text/javascript" src="{% static 'dash/js/plugins/mustache/mustache.min.js' %}"></script>
+        <script type="text/javascript" >
+    $(function(){
+        
+        {% if messages %}
+            {% for message in messages %}
+                
+                {% if message.tags == "success" %}
+                    $.notify({
+                        title: '¡Bien!', 
+                        message: '{{message}}',
+                        icon: 'fa fa-check mr-2 alert-thumb'
+                    }, {
+                        type: 'primary', allow_dismiss: false, newest_on_top: true
+                    });
+
+                {% elif message.tags == "error" %}
+                    $.notify({
+                        title: '¡Error!', 
+                        message: '{{message}}',
+                        icon: 'fa fa-ban mr-2 alert-thumb'
+                    }, {
+                        type: 'danger', allow_dismiss: false, newest_on_top: true
+                    });
+                {% elif message.tags == "warning" %}
+                    
+                    $.notify({
+                        title: '¡Importante!', 
+                        message: '{{message}}',
+                        icon: 'fa fa-shield-alt mr-2 alert-thumb'
+                    }, {
+                        type: 'warning', allow_dismiss: false, newest_on_top: true
+                    });
+                {% else %}
+                    
+                    $.notify({
+                        title: 'Nota:', 
+                        message: '{{message}}',
+                        icon: 'fa fa-bell mr-2 alert-thumb'
+                    }, {
+                        type: 'info', allow_dismiss: false, newest_on_top: true
+                    });
+                {% endif  %}
+
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+        
+        {% block local_scripts %}
+        {% endblock %}
+    </body>
+</html>

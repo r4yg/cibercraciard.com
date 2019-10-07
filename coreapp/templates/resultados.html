@@ -1,0 +1,154 @@
+{% extends 'base/admin.html' %}
+{% load staticfiles %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{%url 'coreapp:building' %}"><i class="icon-Home mr-2 fs14"></i></a></li>
+<li class="breadcrumb-item">
+    <a href="{%url 'coreapp:building' %}">
+        Inicio
+    </a>
+</li>
+<li class="breadcrumb-item active">
+        Resultados 
+</li>
+{% endblock %}
+
+{% block view_title %}
+Resultados <strong>Primarias 2020 PLD </strong>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-primary shadow-sm rounded overflow-hidden">
+            <div class="list-item">
+                <div class="list-thumb bg-primary-active text-primary-light avatar rounded-circle avatar60 shadow-sm">
+                    <i class="icon-Add-Basket"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-2x  lineH-1">Mesas</span>
+                    <span class="list-content text-{{color}}-light fs14">{{total_mesas}}</span>
+
+                </div>
+            </div>
+            <div href="/detalle_mesa/{{id}}" class="d-flex text-muted flex text-right flex-row align-items-center justify-content-end pt-5 pb-5 pl-4 pr-4 bg-primary-active">
+                Mesas habilitadas
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-info shadow-sm rounded overflow-hidden">
+            <div class="list-item">
+                <div class="list-thumb bg-info-active text-info-light avatar rounded-circle avatar60 shadow-sm">
+                    <i class="icon-Add-Basket"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-2x  lineH-1">Registradas</span>
+                    <span class="list-content text-{{color}}-light fs14">{{mesas_computadas}}</span>
+
+                </div>
+            </div>
+            <div href="/detalle_mesa/{{id}}" class="d-flex text-muted flex text-right flex-row align-items-center justify-content-end pt-5 pb-5 pl-4 pr-4 bg-info-active">
+                Computadas <i class="fa fa-arrow-right"></i> {{por_computadas}}% 
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-success shadow-sm rounded overflow-hidden">
+            <div class="list-item">
+                <div class="list-thumb bg-success-active text-success-light avatar rounded-circle avatar60 shadow-sm">
+                    L
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-2x  lineH-1">{{por_leonel}}%</span>
+                    <span class="list-content text-{{color}}-light fs14">Total Votos -> {{leonel}}</span>
+
+                </div>
+            </div>
+            <div href="/detalle_mesa/{{id}}" class="d-flex text-muted flex text-right flex-row align-items-center justify-content-end pt-5 pb-5 pl-4 pr-4 bg-success-active">
+                Leonel Fern&aacute;ndez 
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-danger shadow-sm rounded overflow-hidden">
+            <div class="list-item">
+                <div class="list-thumb bg-danger-active text-danger-light avatar rounded-circle avatar60 shadow-sm">
+                    G
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-2x  lineH-1">{{por_gonzalo}}%</span>
+                    <span class="list-content text-{{color}}-light fs14">Total Votos -> {{gonzalo}}</span>
+
+                </div>
+            </div>
+            <div href="/detalle_mesa/{{id}}" class="d-flex text-muted flex text-right flex-row align-items-center justify-content-end pt-5 pb-5 pl-4 pr-4 bg-danger-active">
+                Gonzalo Castillo 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="bg-white table-responsive rounded shadow-sm pt-3 pb-3 mb-30">
+            <table id="data-table" class="table mb-0 table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Provincia</th>
+                        <th>Municipio</th>
+                        <th>Mesa</th>
+                        <th class="text-center">Leonel</th>
+                        <th class="text-center">Gonzalo</th>
+                        <th class="text-center">Foto Acta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resultado in resultados%}
+                    <tr>
+                        <td>{{resultado.municipio.provincia.nombre}}</td>
+                        <td>{{resultado.municipio.nombre}}</td>
+                        <td>{{resultado.mesa}}</td>
+                        <td class="text-center">{{resultado.votos_leonel}}</td>
+                        <td class="text-center">{{resultado.votos_gonzalo}}</td>
+                        <td class="text-center">
+                            <a href="{% url 'coreapp:detalle_acta' resultado.id %}" class="btn btn-primary mr-3 mb-2">Ver Detalles</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block local_scripts %}
+<script type="text/javascript" src="{% static 'dash/lib/data-tables/jquery.dataTables.min.js' %}"></script> 
+<script type="text/javascript" src="{% static 'dash/lib/data-tables/dataTables.bootstrap4.min.js' %}"></script> 
+<script type="text/javascript" src="{% static 'dash/lib/data-tables/dataTables.responsive.min.js' %}"></script> 
+<script type="text/javascript" src="{% static 'dash/lib/data-tables/responsive.bootstrap4.min.js' %}"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.flash.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable({
+            responsive:true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf'
+            ]
+        });
+    } );
+</script>
+
+{% endblock %}
+

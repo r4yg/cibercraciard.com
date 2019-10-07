@@ -1,0 +1,101 @@
+{% extends 'base/admin.html' %}
+{% load staticfiles %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{%url 'coreapp:building' %}"><i class="icon-Home mr-2 fs14"></i></a></li>
+<li class="breadcrumb-item">
+    <a href="{%url 'coreapp:building' %}">
+        Inicio
+    </a>
+</li>
+<li class="breadcrumb-item active">
+    <a href="{% url 'coreapp:results' %}">
+        Resultados 
+    </a>
+</li>
+<li class="breadcrumb-item active">
+        Detalle Acta
+</li>
+{% endblock %}
+
+{% block view_title %}
+ Detalle Acta <strong> Mesa: {{resultado.mesa}} </strong>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-white shadow-sm rounded mb-30">
+            <div class="list-item">
+                <div class="list-thumb avatar si-colored-facebook text-white rounded avatar40">
+                    <i class="fa fa-map-signs"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-1x" id="dirigentes_qtt">{{resultado.mesa}}</span>
+                    <span class="list-content">Mesa
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-white shadow-sm rounded mb-30">
+            <div class="list-item">
+                <div class="list-thumb avatar si-colored-facebook text-white rounded avatar40">
+                    <i class="fa fa-map-signs"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-1x" id="dirigentes_qtt">{{resultado.municipio.nombre}}</span>
+                    <span class="list-content">Municipio
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-white shadow-sm rounded mb-30">
+            <div class="list-item">
+                <div class="list-thumb avatar si-colored-facebook text-white rounded avatar40">
+                    <i class="fa fa-map-signs"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-1x" id="dirigentes_qtt">{{resultado.votos_leonel}}</span>
+                    <span class="list-content">Leonel Fern&aacute;ndez
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-6 col-md-6 mb-30">
+        <div class="list bg-white shadow-sm rounded mb-30">
+            <div class="list-item">
+                <div class="list-thumb avatar si-colored-facebook text-white rounded avatar40">
+                    <i class="fa fa-map-signs"></i>
+                </div>
+                <div class="list-body text-right">
+                    <span class="list-title fs-1x" id="dirigentes_qtt">{{resultado.votos_gonzalo}}</span>
+                    <span class="list-content">Gonzalo Castillo
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <img src="/{{resultado.acta_imag}}" alt="">
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block local_scripts %}
+
+
+{% endblock %}
+
